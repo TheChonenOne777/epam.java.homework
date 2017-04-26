@@ -38,6 +38,8 @@ public class Notepad {
 				
 				System.out.println("The note with the same title already exists.");
 				
+				break;
+				
 			} else if(n.getTitle().equals("") && !added){
 				
 				n.setTitle(note.getTitle());
