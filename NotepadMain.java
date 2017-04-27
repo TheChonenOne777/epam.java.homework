@@ -22,6 +22,10 @@ public class NotepadMain {
 		
 		notepad.addNote(note2);
 		
+		notepad.readAllNotes();
+		
+		System.out.println();
+		
 		notepad.addNote(note3);
 		
 		notepad.addNote(note4);
@@ -30,7 +34,7 @@ public class NotepadMain {
 		
 		System.out.println();
 		
-		notepad.removeNotes("Test");
+		notepad.removeNote("Test");
 		
 		notepad.readAllNotes();
 		
