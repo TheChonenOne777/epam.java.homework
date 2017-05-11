@@ -1,4 +1,4 @@
-package unit2;
+package unit2.task1;
 
 public class Pen {
 
