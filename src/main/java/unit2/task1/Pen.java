@@ -8,6 +8,7 @@ public class Pen {
     private boolean attachable;
     private int inkLevel;
     private String material;
+    private float thickness;
 
     Pen(){
         type = "ball";
@@ -50,6 +51,14 @@ public class Pen {
         return inkLevel;
     }
 
+    public float getThickness() {
+        return thickness;
+    }
+
+    public void setThickness(float thickness) {
+        this.thickness = thickness;
+    }
+
     public void setInklevel(int inklevel) {
         if(inklevel < 0) {
             inklevel = 0;
@@ -75,13 +84,15 @@ public class Pen {
         String bodyColor,
         boolean attachable,
         int inklevel,
-        String material){
+        String material,
+        float thickness){
 
         this(type, inkColor);
         this.bodyColor = bodyColor;
         this.attachable = attachable;
         this.setInklevel(inklevel);
         this.material = material;
+        this.thickness = thickness;
     }
 
 
@@ -103,7 +114,8 @@ public class Pen {
 
         if (attachable != pen.attachable) return false;
         if (inkLevel != pen.inkLevel) return false;
-        if (!type.equals(pen.type)) return false;
+        if (Float.compare(pen.thickness, thickness) != 0) return false;
+        if (type != null ? !type.equals(pen.type) : pen.type != null) return false;
         if (inkColor != null ? !inkColor.equals(pen.inkColor) : pen.inkColor != null) return false;
         if (bodyColor != null ? !bodyColor.equals(pen.bodyColor) : pen.bodyColor != null) return false;
         return material != null ? material.equals(pen.material) : pen.material == null;
@@ -111,12 +123,13 @@ public class Pen {
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
+        int result = type != null ? type.hashCode() : 0;
         result = 31 * result + (inkColor != null ? inkColor.hashCode() : 0);
         result = 31 * result + (bodyColor != null ? bodyColor.hashCode() : 0);
         result = 31 * result + (attachable ? 1 : 0);
         result = 31 * result + inkLevel;
         result = 31 * result + (material != null ? material.hashCode() : 0);
+        result = 31 * result + (thickness != +0.0f ? Float.floatToIntBits(thickness) : 0);
         return result;
     }
 
@@ -127,8 +140,9 @@ public class Pen {
                 ", inkColor='" + inkColor + '\'' +
                 ", bodyColor='" + bodyColor + '\'' +
                 ", attachable=" + attachable +
-                ", inklevel=" + inkLevel +
+                ", inkLevel=" + inkLevel +
                 ", material='" + material + '\'' +
+                ", thickness=" + thickness +
                 '}';
     }
 }

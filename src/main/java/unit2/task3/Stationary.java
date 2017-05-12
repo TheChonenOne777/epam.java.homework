@@ -1,16 +1,11 @@
-package unit2.task2;
+package unit2.task3;
 
-public class Item {
 
-    private String name = "";
-    private int price = 0;
+public abstract class Stationary {
 
-    public Item(){};
-
-    public Item(String name, int price) {
-        this.name = name;
-        this.price = price;
-    }
+    protected String name;
+    protected int price;
+    protected String color;
 
     public String getName() {
         return name;
@@ -18,6 +13,14 @@ public class Item {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public int getPrice() {
