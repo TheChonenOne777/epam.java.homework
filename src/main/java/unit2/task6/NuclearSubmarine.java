@@ -1,6 +1,12 @@
-package unit2.task5;
+package unit2.task6;
 
+import unit2.task7.*;
 
+@PreWordForClass(
+        author = "Vladimir Chertilov",
+        dateCreated = "5/15/2017",
+        ifInGitHub = true
+)
 public class NuclearSubmarine {
 
     private int speed;

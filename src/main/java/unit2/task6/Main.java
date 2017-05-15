@@ -1,4 +1,4 @@
-package unit2.task5;
+package unit2.task6;
 
 
 public class Main {
