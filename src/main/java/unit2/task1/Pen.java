@@ -1,5 +1,9 @@
 package unit2.task1;
 
+/**
+ * Specification for class Pen.
+ */
+
 public class Pen {
 
     private final String type;
@@ -140,7 +144,7 @@ public class Pen {
                 ", inkColor='" + inkColor + '\'' +
                 ", bodyColor='" + bodyColor + '\'' +
                 ", attachable=" + attachable +
-                ", inkLevel=" + inkLevel +
+                ", writingResorceLevel=" + inkLevel +
                 ", material='" + material + '\'' +
                 ", thickness=" + thickness +
                 '}';
