@@ -41,9 +41,9 @@ public class Student {
     }
 
     /**
-     * Probably creation of this method was not necessary.
+     * Retruns a list of Marks for this student for particular subject.
      * @param sbj - subject to be inspected for this student
-     * @return List of marks of particular subject of this student
+     * @return - List of marks of particular subject of this student
      */
     public List<Mark> getMarksOfSubject(Subject sbj){
         List<Mark> markList = new ArrayList<>();
@@ -67,6 +67,19 @@ public class Student {
         sbj.getMarks().remove(this);
     }
 
+
+
+    public String toStringListOfMarks(){
+        StringBuilder output = new StringBuilder();
+        for(Map.Entry<Subject, List<Mark>> pair : marks.entrySet()){
+            output.append("\n" + pair.getKey().getName().getName() + ": ");
+            for(Mark mark : pair.getValue()){
+                output.append(mark + " | ");
+            }
+        }
+        return output.toString();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,10 +97,8 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", marks=" + marks +
-                '}';
+        return "ID: " + id
+                + "; Name: " + name
+                + "; Marks: " + toStringListOfMarks();
     }
 }

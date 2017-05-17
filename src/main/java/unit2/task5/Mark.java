@@ -20,5 +20,8 @@ public class Mark<T extends Number> {
         this.mark = mark;
     }
 
-
+    @Override
+    public String toString() {
+        return mark.toString();
+    }
 }
