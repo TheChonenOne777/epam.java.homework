@@ -1,6 +1,7 @@
 package unit2.task5;
 
 
+import java.util.Objects;
 
 public class Mark<T extends Number> {
 
@@ -23,5 +24,18 @@ public class Mark<T extends Number> {
     @Override
     public String toString() {
         return mark.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mark<?> mark1 = (Mark<?>) o;
+        return Objects.equals(mark, mark1.mark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mark);
     }
 }

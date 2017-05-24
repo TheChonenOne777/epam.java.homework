@@ -61,9 +61,14 @@ public class Subject {
         for(Map.Entry<Student, List<Mark>> studentMarks : marks.entrySet()){
             if(studentMarks.getKey().equals(student)){
                 studentMarks.getValue().add(mark);
-                student.getMarks().put(this, student.getMarksOfSubject(this));
+                student.getMarks().put(this, studentMarks.getValue());
             }
         }
+    }
+
+    public void removeStudent(Student student){
+        student.getMarks().remove(this);
+        marks.remove(student);
     }
 
     public String toStringListOfMarks(){

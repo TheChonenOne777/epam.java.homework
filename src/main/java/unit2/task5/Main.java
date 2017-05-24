@@ -29,25 +29,31 @@ public class Main {
         math.assignMark(john, new Mark<Integer>(4));
         math.assignMark(john, new Mark<Integer>(5));
         java.assignMark(jess, new Mark<Double>(4.5));
+        java.assignMark(jess, new Mark<Double>(3.8));
+        java.assignMark(jess, new Mark<Double>(7.1));
 
         System.out.println(john);
 
         System.out.println();
 
-        System.out.println(java);
+//        System.out.println(java);
 
         System.out.println();
 
         System.out.println(math);
 
         john.removeFromGroup(java);
-        //java.getMarks().remove(john);
+//        java.removeStudent(john);
+
         System.out.println("john removed");
+
         System.out.println(john);
 
         System.out.println();
 
         System.out.println(java);
+
+        System.out.println("Average mark for Jess in Java course: " + jess.getAverageOfSubjectMarks(java));
 
     }
 

@@ -67,7 +67,15 @@ public class Student {
         sbj.getMarks().remove(this);
     }
 
-
+    public double getAverageOfSubjectMarks(Subject sbj){
+        double averageMark = 0.0;
+        int i = 0;
+        for(Mark mark : getMarksOfSubject(sbj)){
+            averageMark += mark.getMark().doubleValue();
+            i++;
+        }
+        return (Math.ceil(averageMark * 100 / i)) / 100;
+    }
 
     public String toStringListOfMarks(){
         StringBuilder output = new StringBuilder();
@@ -86,19 +94,18 @@ public class Student {
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
         return id == student.id &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(marks, student.marks);
+                Objects.equals(name, student.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, id, marks);
+        return Objects.hash(name, id);
     }
 
     @Override
     public String toString() {
         return "ID: " + id
                 + "; Name: " + name
-                + "; Marks: " + toStringListOfMarks();
+                + "; Marks: " + marks;
     }
 }
