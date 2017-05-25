@@ -2,15 +2,13 @@ package inclassQuizes.ceasarCipher;
 
 
 import java.io.*;
-import java.util.Arrays;
 
 public class CeasarCipher {
 
     public static int D = 3;
 
+
     public static String ceasar(String inputString, int d){
-
-
 
         StringBuilder sb = new StringBuilder();
 
