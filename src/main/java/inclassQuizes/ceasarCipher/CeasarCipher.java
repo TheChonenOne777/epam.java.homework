@@ -34,10 +34,10 @@ public class CeasarCipher {
         }
 
         try(BufferedReader br = new BufferedReader(new FileReader(args[i]));
-            PrintWriter pw = new PrintWriter(new FileWriter(args[i + 1]))){
+            BufferedWriter bw = new BufferedWriter(new FileWriter(args[i + 1]))){
 
             while (br.ready()){
-                pw.println(CeasarCipher.ceasar(br.readLine(), D));
+                bw.write(CeasarCipher.ceasar(br.readLine(), D));
             }
 
         } catch (IOException e){

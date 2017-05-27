@@ -1,0 +1,16 @@
+Found:
+for: 2 times
+new: 4 times
+if: 4 times
+private: 2 times
+this: 3 times
+implements: 1 times
+throw: 1 times
+else: 2 times
+public: 8 times
+return: 4 times
+int: 6 times
+static: 1 times
+void: 2 times
+class: 2 times
+while: 1 times
