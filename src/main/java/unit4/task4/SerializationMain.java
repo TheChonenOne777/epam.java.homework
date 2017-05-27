@@ -13,18 +13,18 @@ public class SerializationMain {
         checkFile(file);
 
         if(file.exists()){
-            try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
-
-                moviesCollection = (MoviesCollection) ois.readObject();
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-//            deserializeMovieCollection(file, moviesCollection);       //doesn't work, moviesCollection is empty
+//            try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
+//
+//                moviesCollection = (MoviesCollection) ois.readObject();
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+            moviesCollection = deserializeMovieCollection(file);       //doesn't work, moviesCollection is empty
 
         } else {
             addTestMovies(moviesCollection);
@@ -71,11 +71,13 @@ public class SerializationMain {
         }
     }
 
-    private static void deserializeMovieCollection(File file, MoviesCollection moviesCollection) {
+    private static MoviesCollection deserializeMovieCollection(File file) {
+
+        MoviesCollection mc = new MoviesCollection();
 
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
 
-            moviesCollection = (MoviesCollection) ois.readObject();
+            mc = (MoviesCollection) ois.readObject();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -84,6 +86,8 @@ public class SerializationMain {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        return mc;
     }
 
 }
