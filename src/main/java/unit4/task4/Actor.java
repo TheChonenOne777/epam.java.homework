@@ -2,11 +2,11 @@ package unit4.task4;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Actor implements Serializable{
 
     private String name;
-    private int height;
     private int dayOfBirth;
     private int monthOfBirth;
     private int yearOfBirth;
@@ -17,9 +17,8 @@ public class Actor implements Serializable{
         this.name = name;
     }
 
-    public Actor(String name, int height, int dayOfBirth, int monthOfBirth, int yearOfBirth) {
+    public Actor(String name, int dayOfBirth, int monthOfBirth, int yearOfBirth) {
         this.name = name;
-        this.height = height;
         this.dayOfBirth = dayOfBirth;
         this.monthOfBirth = monthOfBirth;
         this.yearOfBirth = yearOfBirth;
@@ -31,14 +30,6 @@ public class Actor implements Serializable{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public int getDayOfBirth() {
@@ -67,12 +58,22 @@ public class Actor implements Serializable{
 
     @Override
     public String toString() {
-        return "Actor{" +
-                "name='" + name + '\'' +
-                ", height=" + height +
-                ", dayOfBirth=" + dayOfBirth +
-                ", monthOfBirth=" + monthOfBirth +
-                ", yearOfBirth=" + yearOfBirth +
-                '}';
+        return name +", born: " + dayOfBirth + "/" + monthOfBirth + "/" + yearOfBirth;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Actor actor = (Actor) o;
+        return dayOfBirth == actor.dayOfBirth &&
+                monthOfBirth == actor.monthOfBirth &&
+                yearOfBirth == actor.yearOfBirth &&
+                Objects.equals(name, actor.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, dayOfBirth, monthOfBirth, yearOfBirth);
     }
 }

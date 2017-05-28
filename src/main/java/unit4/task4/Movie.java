@@ -22,8 +22,13 @@ public class Movie implements Serializable {
         this.name = name;
     }
 
-    public Movie(String name, int length, Set<Actor> cast) {
+    public Movie(String name, int length) {
         this(name);
+        this.length = length;
+    }
+
+    public Movie(String name, int length, Set<Actor> cast) {
+        this(name, length);
         this.length = length;
         this.cast = cast;
     }
@@ -62,11 +67,7 @@ public class Movie implements Serializable {
 
     @Override
     public String toString() {
-        return "Movie{" +
-                "name='" + name + '\'' +
-                ", length=" + length +
-                ", cast=" + cast +
-                '}';
+        return "\"" + getName() + "\", " + getLength() + " mins";
     }
 
     @Override

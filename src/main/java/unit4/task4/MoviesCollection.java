@@ -36,8 +36,17 @@ public class MoviesCollection implements Serializable{
 
     @Override
     public String toString() {
-        return "MoviesCollection{" +
-                "movies=" + movies +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("MoviesCollection:\n");
+        for(Movie movie : movies){
+            sb.append(movie).append('\n');
+            sb.append("Cast:\n");
+            for(Actor actor : movie.getCast()){
+                sb.append(actor).append('\n');
+            }
+            sb.append('\n');
+        }
+
+        return sb.toString();
     }
 }

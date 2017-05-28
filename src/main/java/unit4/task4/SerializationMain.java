@@ -1,7 +1,9 @@
 package unit4.task4;
 
 
+import javax.swing.*;
 import java.io.*;
+import java.util.Scanner;
 
 public class SerializationMain {
 
@@ -13,29 +15,20 @@ public class SerializationMain {
         checkFile(file);
 
         if(file.exists()){
-//            try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))){
-//
-//                moviesCollection = (MoviesCollection) ois.readObject();
-//
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
-            moviesCollection = deserializeMovieCollection(file);       //doesn't work, moviesCollection is empty
-
+            moviesCollection = deserializeMovieCollection(file);
         } else {
             addTestMovies(moviesCollection);
         }
 
+        moviesCollection = ConsoleAction.action(moviesCollection);
+
         System.out.println(moviesCollection);
 
-        serializeMovieCollection(moviesCollection, file);
+//        serializeMovieCollection(moviesCollection, file);
 
 
     }
+
 
     private static void serializeMovieCollection(MoviesCollection moviesCollection, File file) {
         try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))){
@@ -50,11 +43,11 @@ public class SerializationMain {
     }
 
     private static void addTestMovies(MoviesCollection mc) {
-        Actor actor1 = new Actor("Robert");
-        Actor actor2 = new Actor("Bradley");
-        Actor actor3 = new Actor("Emma");
-        Movie movie1 = new Movie("Who is who");
-        Movie movie2 = new Movie("Act of nothing");
+        Actor actor1 = new Actor("Robert", 23, 4, 1969);
+        Actor actor2 = new Actor("Bradley", 13, 5, 1988);
+        Actor actor3 = new Actor("Emma", 29, 3, 1992);
+        Movie movie1 = new Movie("Who is who", 95);
+        Movie movie2 = new Movie("Act of nothing", 121);
 
         movie1.addActor(actor1);
         movie1.addActor(actor2);
