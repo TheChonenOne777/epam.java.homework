@@ -22,10 +22,8 @@ public class SerializationMain {
 
         moviesCollection = ConsoleAction.action(moviesCollection);
 
-        System.out.println(moviesCollection);
 
-//        serializeMovieCollection(moviesCollection, file);
-
+        serializeMovieCollection(moviesCollection, file);
 
     }
 

@@ -2,36 +2,43 @@ package unit4.task4;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class MoviesCollection implements Serializable{
 
-    private Set<Movie> movies;
+    private List<Movie> movies;
 
     public MoviesCollection(){
-        movies = new HashSet<>();
+        movies = new ArrayList<>();
     }
 
-    public MoviesCollection(Set<Movie> movies) {
+    public MoviesCollection(List<Movie> movies) {
         this();
-        this.movies = movies;
+        Set<Movie> uniqueMovies = new HashSet<>(movies);
+        this.movies.addAll(uniqueMovies);
     }
 
-    public Set<Movie> getMovies() {
+    public List<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(Set<Movie> movies) {
+    public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
 
-    public void addMovie(Movie movie){
-        movies.add(movie);
+    public boolean addMovie(Movie movie){
+        return movies.contains(movie) ? false : movies.add(movie);
     }
 
     public void removeMovie(Movie movie){
         movies.remove(movie);
+    }
+
+    public void removeMovie(int i){
+        movies.remove(i);
     }
 
     @Override

@@ -2,19 +2,16 @@ package unit4.task4;
 
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Movie implements Serializable {
 
     private String name;
     private int length;
-    private Set<Actor> cast;
+    private List<Actor> cast;
 
     public Movie(){
-        cast = new HashSet<>();
+        cast = new ArrayList<>();
     }
 
     public Movie(String name) {
@@ -27,17 +24,18 @@ public class Movie implements Serializable {
         this.length = length;
     }
 
-    public Movie(String name, int length, Set<Actor> cast) {
+    public Movie(String name, int length, List<Actor> cast) {
         this(name, length);
         this.length = length;
-        this.cast = cast;
+        Set<Actor> uniqueActors = new HashSet<>(cast);
+        this.cast.addAll(uniqueActors);
     }
 
-    public Set<Actor> getCast() {
+    public List<Actor> getCast() {
         return cast;
     }
 
-    public void setCast(Set<Actor> cast) {
+    public void setCast(List<Actor> cast) {
         this.cast = cast;
     }
 
@@ -57,12 +55,16 @@ public class Movie implements Serializable {
         this.length = length;
     }
 
-    public void addActor(Actor actor){
-        cast.add(actor);
+    public boolean addActor(Actor actor){
+        return cast.contains(actor) ? false : cast.add(actor);
     }
 
     public void removeActor(Actor actor){
         cast.remove(actor);
+    }
+
+    public void removeActor(int i){
+        cast.remove(i);
     }
 
     @Override
