@@ -1,16 +1,24 @@
 package unit5;
 
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileManager {
 
+    File pathToFile;
     File file;
 
     public FileManager(){
-        file = new File(System.getProperty("user.dir"));
+        pathToFile = new File(System.getProperty("user.dir"));
+    }
+
+    public File getPathToFile() {
+        return pathToFile;
     }
 
     public File getFile() {
@@ -18,38 +26,44 @@ public class FileManager {
     }
 
     public void showDirectories(){
-        if(file.isDirectory()) {
-            for (File f : file.listFiles()) {
+        if(pathToFile.isDirectory()) {
+            for (File f : pathToFile.listFiles()) {
                 System.out.println(f.getName());
             }
         }
     }
 
     public void showFiles(){
-        if(file.isFile()) {
-            for (File f : file.listFiles()) {
+        if(pathToFile.isFile()) {
+            for (File f : pathToFile.listFiles()) {
                 System.out.println(f.getName());
             }
         }
     }
 
     public void showAll(){
-        for (File f : file.listFiles()) {
+        for (File f : pathToFile.listFiles()) {
             System.out.println(f.getName());
         }
     }
 
-    public String[] getAllFileNamesInCurrentDirectory(){
+    public String[] getFolderNames(){
         String[] list = {};
-        if(file.isDirectory()) list = file.list();
+        if(pathToFile.isDirectory()) list = pathToFile.list();
+        return list;
+    }
+
+    public String[] getFileNames(){
+        String[] list = {};
+        if(pathToFile.isFile()) list = pathToFile.list();
         return list;
     }
 
     public boolean moveBack(){
-        if(file.getParentFile() == null){
+        if(pathToFile.getParentFile() == null){
             return false;
         } else {
-            file = new File(file.getParentFile().getPath());        //I might make it oneliner one day :)
+            pathToFile = new File(pathToFile.getParentFile().getPath());        //I might make it oneliner one day :)
             return true;
         }
     }
@@ -60,58 +74,39 @@ public class FileManager {
             checkFile = new File(directory);
         } else if(directory.indexOf('/') != 0){
             directory = '/' + directory;
-            checkFile = new File(file.getPath() + directory);
+            checkFile = new File(pathToFile.getPath() + directory);
         }
         if(checkFile.exists() && checkFile.isDirectory()){
-            file = checkFile;           //ugly, but works
+            pathToFile = checkFile;           //ugly, but works
             return true;
         } else {
             return false;
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public boolean checkFile(String fileName){
+        file = new File(fileName);
+        return file.exists() && file.isFile();
+    }
 
-        FileManager fm = new FileManager();
-
-        for(String s : fm.getAllFileNamesInCurrentDirectory()){
-            System.out.println(s);
+    public List<String> getFileContent() throws IOException {
+        if(file.canRead()) {
+            return Files.readAllLines(file.toPath());
+        } else {
+            return new ArrayList<>();
         }
+    }
 
-        System.out.println(fm.getFile().getAbsolutePath());
+    public void writeToFile(String content) throws IOException {
+        if(file.canWrite()) {
+            try (BufferedWriter bw = Files.newBufferedWriter(file.toPath())) {
+                bw.write(content);
+            }
+        }
+    }
 
-        System.out.println(fm.moveToDirectory("pom.xml"));
-
-        System.out.println(fm.getFile().getAbsolutePath());
-
-        System.out.println(fm.moveToDirectory("c:/program files"));
-
-        System.out.println(fm.getFile().getAbsolutePath());
-
-        fm.showAll();
-
-
-//        File file = new File("c:/users");
-//        System.out.println(file.exists());
-//        for(File f : file.listFiles()){
-//            System.out.println(f.getName());
-//        }
-//
-//        file = new File(file.getParentFile().getPath());
-//        System.out.println(file.exists());
-//        for(File f : file.listFiles()){
-//            System.out.println(f);
-//        }
-//
-//        file = new File(file.getPath() + "/chertvl/Documents/GitHub/epam.java.homework/pom.xml");
-//        System.out.println(file.isDirectory());
-//        System.out.println(file.exists());
-//        System.out.println(file.isFile());
-//        System.out.println(file.getPath());
-//        System.out.println(file.list());
-//        file.mkdir();
-//        System.out.println(file.exists());
-
+    public boolean delete(String item){
+        return new File(item).delete();
     }
 
 }
