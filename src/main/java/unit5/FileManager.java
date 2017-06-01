@@ -25,28 +25,6 @@ public class FileManager {
         return file;
     }
 
-    public void showDirectories(){
-        if(pathToFile.isDirectory()) {
-            for (File f : pathToFile.listFiles()) {
-                System.out.println(f.getName());
-            }
-        }
-    }
-
-    public void showFiles(){
-        if(pathToFile.isFile()) {
-            for (File f : pathToFile.listFiles()) {
-                System.out.println(f.getName());
-            }
-        }
-    }
-
-    public void showAll(){
-        for (File f : pathToFile.listFiles()) {
-            System.out.println(f.getName());
-        }
-    }
-
     public String[] getFolderNames(){
         String[] list = {};
         if(pathToFile.isDirectory()) list = pathToFile.list();
@@ -57,6 +35,10 @@ public class FileManager {
         String[] list = {};
         if(pathToFile.isFile()) list = pathToFile.list();
         return list;
+    }
+
+    public String[] getAllFileNames(){
+        return pathToFile.list();
     }
 
     public boolean moveBack(){

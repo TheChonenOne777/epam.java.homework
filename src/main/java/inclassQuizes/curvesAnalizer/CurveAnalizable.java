@@ -1,4 +1,4 @@
-package inclassQuizes.CurvesAnalizer;
+package inclassQuizes.curvesAnalizer;
 
 
 public interface CurveAnalizable {

@@ -1,4 +1,4 @@
-package inclassQuizes.CurvesAnalizer;
+package inclassQuizes.curvesAnalizer;
 
 
 import java.util.*;
