@@ -75,7 +75,7 @@ public class FileManager {
         if(file.canRead()) {
             return Files.readAllLines(file.toPath());
         } else {
-            return new ArrayList<>();
+            throw new IllegalArgumentException();
         }
     }
 
@@ -84,6 +84,8 @@ public class FileManager {
             try (BufferedWriter bw = Files.newBufferedWriter(file.toPath())) {
                 bw.write(content);
             }
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
