@@ -47,11 +47,13 @@ public class MyArrayQueue<E> implements Queue<E>{
     }
 
     private void enlarge() {
-        Object[] newArray = new Object[(objects.length * 3) / 2];
+        int len = objects.length;
+        Object[] newArray = new Object[(len * 3) / 2];
         for(int i = 0; i < size; i++){
-            newArray[i] = objects[(first + i) % objects.length];
+            newArray[i] = objects[(first + i) % len];
         }
         objects = newArray;
+        last = len;
     }
 
 }
