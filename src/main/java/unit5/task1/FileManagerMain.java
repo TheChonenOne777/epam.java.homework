@@ -1,9 +1,8 @@
-package unit5;
+package unit5.task1;
 
 
-import javax.sound.midi.Soundbank;
-import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileManagerMain {
@@ -21,16 +20,24 @@ public class FileManagerMain {
         System.out.println("back - move to previous catalog");
         System.out.println("open - start working with a file");
         System.out.println("delete item - delete specific item");
+        System.out.println("create fileName.txt - create specific file");
         System.out.println("to exit type exit");
 
-        String input = scanner.nextLine();
+        String input = "";
 
         while(!"exit".equals(input)){
 
             input = scanner.nextLine();
+            String argument = "";
+            String command = "";
+
             int indexOfSpace = input.indexOf(' ');
-            String command = input.substring(0, indexOfSpace);
-            String argument = input.substring(indexOfSpace + 1);
+            if(indexOfSpace >= 0) {
+                argument = input.substring(indexOfSpace + 1);
+                command = input.substring(0, indexOfSpace);
+            } else {
+                command = input;
+            }
 
             switch (command){
                 case("show"):
@@ -45,6 +52,10 @@ public class FileManagerMain {
 
                         case("folders"):
                             showDirectories(fm);
+                            break;
+
+                        case("path"):
+                            System.out.println(fm.getPathToFile());;
                             break;
 
                         default:
@@ -65,30 +76,40 @@ public class FileManagerMain {
                     break;
 
                 case("open"):
-                    String[] fileNames = fm.getFileNames();
-                    for (int i = 0; i < fileNames.length; i++) {
-                        System.out.println(i + ". " + fileNames[i]);
+                    List<String> fileNames = fm.getFileNames();
+                    for (int i = 0; i < fileNames.size(); i++) {
+                        System.out.println(i + ". " + fileNames.get(i));
                     }
                     System.out.println("Choose a file number to work with");
                     int numberOfFileToOpen = scanner.nextInt();
-                    String fileName = fileNames[numberOfFileToOpen];
+                    String fileName = fileNames.get(numberOfFileToOpen);
+
                     if(fm.checkFile(fileName)) {
+                        StringBuilder sb = new StringBuilder();
+                        try {
+                            for(String s : fm.getFileContent());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         System.out.println("All lines will be added to the file.");
                         System.out.println("/read - get current content of the file");
                         System.out.println("/exit - exit edit mode");
-                        input = scanner.nextLine();
-                        while(!"/exit".equals(input)){
+
+                        while(true){
                             input = scanner.nextLine();
-                            if("/read".equals(input)){
+                            if("/exit".equals(input)) break;
+                            if("/read".equals(input)) {
                                 readFileContent(fm);
-                                break;
+                                continue;
                             }
-                            try {
-                                fm.writeToFile(input);
-                            } catch (IOException e) {
-                                System.out.println("can't write to file");
-                                e.printStackTrace();
-                            }
+                            sb.append(input).append('\n');
+                        }
+
+                        try {
+                            fm.writeToFile(input);
+                        } catch (IOException e) {
+                            System.out.println("can't write to file");
+                            e.printStackTrace();
                         }
                     } else {
                         System.out.println("File doesn't exist or it's not a file");
@@ -109,7 +130,21 @@ public class FileManagerMain {
                     }
                     break;
 
+                case("create"):
+                    try {
+                        fm.createFile(argument);
+                    } catch (IOException e) {
+                        System.out.println("file cannot be created");
+                        e.printStackTrace();
+                    }
+                    break;
+
+                case("exit"):
+                    System.out.println("Goodbye");
+                    break;
+
                 default:
+                    System.out.println("cannot recognize command " + command);
                 case("help"):
                     System.out.println("show [all/files/folders] - view all elements or files or folders in current directory");
                     System.out.println("goto path - move to specified path");
@@ -137,14 +172,12 @@ public class FileManagerMain {
     public static void showDirectories(FileManager fileManager){
         for (String f : fileManager.getFolderNames()) {
             System.out.println(f);
-        }
-    }
+        }    }
 
     public static void showFiles(FileManager fileManager){
         for (String f : fileManager.getFileNames()) {
             System.out.println(f);
-        }
-    }
+        }    }
 
     public static void showAll(FileManager fileManager){
         for (String f : fileManager.getAllFileNames()) {

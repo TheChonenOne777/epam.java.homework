@@ -1,4 +1,4 @@
-package unit5;
+package unit5.task1;
 
 
 import java.io.BufferedWriter;
@@ -25,15 +25,19 @@ public class FileManager {
         return file;
     }
 
-    public String[] getFolderNames(){
-        String[] list = {};
-        if(pathToFile.isDirectory()) list = pathToFile.list();
+    public List<String> getFolderNames(){
+        List<String> list = new ArrayList<>();
+        for(File f : pathToFile.listFiles()){
+            if(f.isDirectory()) list.add(f.getName());
+        }
         return list;
     }
 
-    public String[] getFileNames(){
-        String[] list = {};
-        if(pathToFile.isFile()) list = pathToFile.list();
+    public List<String> getFileNames(){
+        List<String> list = new ArrayList<>();
+        for(File f : pathToFile.listFiles()){
+            if(f.isFile()) list.add(f.getName());
+        }
         return list;
     }
 
@@ -87,6 +91,10 @@ public class FileManager {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    public void createFile(String fileName) throws IOException {
+        new File(fileName).createNewFile();
     }
 
     public boolean delete(String item){
