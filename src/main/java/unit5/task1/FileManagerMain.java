@@ -137,7 +137,8 @@ public class FileManagerMain {
                             System.out.println("Type file name: ");
                             input = scanner.nextLine();
                             try {
-                                fm.createFile(argument);
+                                fm.createFile(input);
+                                System.out.println("file created");
                             } catch (IOException e) {
                                 System.out.println("file cannot be created");
                                 e.printStackTrace();
@@ -147,6 +148,7 @@ public class FileManagerMain {
                             System.out.println("Type folder name: ");
                             input = scanner.nextLine();
                             fm.createFolder(input);
+                            System.out.println("folder created");
                             break;
                         default:
                             System.out.println("cannot recognize command: " + argument);
