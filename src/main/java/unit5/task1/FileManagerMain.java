@@ -15,7 +15,8 @@ public class FileManagerMain {
 
         System.out.println("Welcome to file manager, my dear user!");
         System.out.println("You can walk through catalogs, work with files and folders.");
-        System.out.println("show [all/files/folders] - view all elements or files or folders in current directory");
+        System.out.println("show [all/files/folders/path] - " +
+                "view all elements or files or folders in current directory or path to this directory");
         System.out.println("goto path - move to specified path");
         System.out.println("back - move to previous catalog");
         System.out.println("open - start working with a file");
@@ -88,7 +89,9 @@ public class FileManagerMain {
                     if(fm.checkFile(fileName)) {
                         StringBuilder sb = new StringBuilder();
                         try {
-                            for(String s : fm.getFileContent());
+                            for(String s : fm.getFileContent()){
+                                sb.append(s);
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -107,7 +110,8 @@ public class FileManagerMain {
                         }
 
                         try {
-                            fm.writeToFile(input);
+                            fm.writeToFile(sb.toString());
+                            System.out.println("All lines are successfully written to the file");
                         } catch (IOException e) {
                             System.out.println("can't write to file");
                             e.printStackTrace();
@@ -163,7 +167,8 @@ public class FileManagerMain {
                 default:
                     System.out.println("cannot recognize command " + command);
                 case("help"):
-                    System.out.println("show [all/files/folders] - view all elements or files or folders in current directory");
+                    System.out.println("show [all/files/folders/path] - " +
+                            "view all elements or files or folders in current directory or path to current directory");
                     System.out.println("goto path - move to specified path");
                     System.out.println("back - move to previous catalog");
                     System.out.println("open - start working with a file");
