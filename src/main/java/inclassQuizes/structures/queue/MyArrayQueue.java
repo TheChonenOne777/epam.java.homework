@@ -4,6 +4,7 @@ package inclassQuizes.structures.queue;
 import inclassQuizes.structures.stack.EmptyQueueException;
 
 import java.util.EmptyStackException;
+import java.util.Iterator;
 
 public class MyArrayQueue<E> implements Queue<E>{
 
@@ -54,6 +55,20 @@ public class MyArrayQueue<E> implements Queue<E>{
         }
         objects = newArray;
         last = len;
+    }
+
+    class ArrayQueueIterator<E> implements Iterator<E>{
+
+
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public E next() {
+            return null;
+        }
     }
 
 }

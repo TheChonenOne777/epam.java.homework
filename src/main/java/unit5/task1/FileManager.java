@@ -97,6 +97,10 @@ public class FileManager {
         new File(fileName).createNewFile();
     }
 
+    public void createFolder(String folderName){
+        new File(folderName).mkdir();
+    }
+
     public boolean delete(String item){
         return new File(item).delete();
     }

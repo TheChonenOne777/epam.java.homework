@@ -20,7 +20,8 @@ public class FileManagerMain {
         System.out.println("back - move to previous catalog");
         System.out.println("open - start working with a file");
         System.out.println("delete item - delete specific item");
-        System.out.println("create fileName.txt - create specific file");
+        System.out.println("create file - create file in current directory");
+        System.out.println("create folder - create folder in current directory");
         System.out.println("to exit type exit");
 
         String input = "";
@@ -131,12 +132,26 @@ public class FileManagerMain {
                     break;
 
                 case("create"):
-                    try {
-                        fm.createFile(argument);
-                    } catch (IOException e) {
-                        System.out.println("file cannot be created");
-                        e.printStackTrace();
+                    switch (argument){
+                        case ("file"):
+                            System.out.println("Type file name: ");
+                            input = scanner.nextLine();
+                            try {
+                                fm.createFile(argument);
+                            } catch (IOException e) {
+                                System.out.println("file cannot be created");
+                                e.printStackTrace();
+                            }
+                            break;
+                        case ("folder"):
+                            System.out.println("Type folder name: ");
+                            input = scanner.nextLine();
+                            fm.createFolder(input);
+                            break;
+                        default:
+                            System.out.println("cannot recognize command: " + argument);
                     }
+
                     break;
 
                 case("exit"):
@@ -148,8 +163,11 @@ public class FileManagerMain {
                 case("help"):
                     System.out.println("show [all/files/folders] - view all elements or files or folders in current directory");
                     System.out.println("goto path - move to specified path");
+                    System.out.println("back - move to previous catalog");
                     System.out.println("open - start working with a file");
                     System.out.println("delete item - delete specific item");
+                    System.out.println("create file - create file in current directory");
+                    System.out.println("create folder - create folder in current directory");
                     System.out.println("to exit type exit");
                     break;
             }
