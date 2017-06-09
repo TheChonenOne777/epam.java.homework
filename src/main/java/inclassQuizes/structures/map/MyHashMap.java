@@ -5,40 +5,68 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     Entry<K, V>[] buckets;
     int size;
+    V nullValue;
+    float loadFactor = 0.75f;
 
-    public MyHashMap(){
-         buckets = new Entry[16];
+    public MyHashMap() {
+        buckets = new Entry[16];
     }
 
-    public MyHashMap(int capacity){
+    public MyHashMap(int capacity) {
         buckets = new Entry[capacity];
+    }
+
+    public MyHashMap(int capacity, float loadFactor) {
+        buckets = new Entry[capacity];
+        this.loadFactor = loadFactor;
     }
 
     @Override
     public void put(K key, V value) {
         Entry<K, V> newEntry = new Entry<>(key, value);
-        if(key == null){
-            //call for null bucket
+        if (key == null) {
+            nullValue = value;
         }
         int hash = key.hashCode();
         int index = indexNum(hash, buckets.length);
 
-        if(buckets[index] == null){
+        Entry<K, V> cur = buckets[index];
+
+        if (cur == null) {
             buckets[index] = newEntry;
+            size++;
         } else {
-            Entry<K, V> cur = buckets[index];
-            while(true){
-                if(cur.getKey() == key){
+            Entry<K, V> prev = null;
+            while (cur != null) {
+                if (cur.getKey().equals(key)) {
                     cur.value = value;
                     break;
-                } else if(cur.getKey() == null){
-                    cur.next = newEntry;
-                    break;
                 }
+                prev = cur;
                 cur = cur.next;
             }
+            if(cur == null){
+                prev.next = newEntry;
+                size++;
+            }
         }
-        size++;
+        if(size > loadFactor * buckets.length){
+            grow();
+        }
+    }
+
+    private void grow() {
+        int capacity = buckets.length << 1;
+        Entry<K, V>[] oldData = buckets;
+        buckets = new Entry[capacity];
+        size = 0;
+        for(Entry<K, V> bucket : oldData){
+            Entry<K, V> entry = bucket;
+            while(entry != null){
+                put(entry.key, entry.value);
+                entry = entry.next;
+            }
+        }
     }
 
     @Override
@@ -48,25 +76,19 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public V getOrDefault(K key, V defaultValue) {
-        if(key == null){
-            return defaultValue;
-            //call for null bucket
+        if (key == null) {
+            return nullValue;
         }
         int hash = key.hashCode();
         int index = indexNum(hash, buckets.length);
         Entry<K, V> newEntry = buckets[index];
-        while(true){
-            if(newEntry == null){
-                return null;
-            }
-            if(newEntry.getKey() == key){
+        while (newEntry != null) {
+            if (newEntry.getKey().equals(key)) {
                 return newEntry.getValue();
             }
             newEntry = newEntry.next;
-            if(newEntry == null){
-                return defaultValue;
-            }
         }
+        return defaultValue;
     }
 
     @Override
@@ -76,20 +98,20 @@ public class MyHashMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean remove(K key) {
-        if(key == null){
-            return false;
-            //null bucket
+        if (key == null) {
+            nullValue = null;
+            return true;
         }
         int hash = key.hashCode();
         int index = indexNum(hash, buckets.length);
-        if(buckets[index] == null){
+        if (buckets[index] == null) {
             return false;
         }
         Entry<K, V> cur = buckets[index];
         Entry<K, V> prev = null;
-        while(true){
-            if(cur.getKey() == key){
-                if(prev == null){
+        while (cur != null) {
+            if (cur.getKey().equals(key)) {
+                if (prev == null) {
                     buckets[index] = null;
                     size--;
                     return true;
@@ -100,36 +122,35 @@ public class MyHashMap<K, V> implements Map<K, V> {
             }
             prev = cur;
             cur = cur.next;
-            if(cur == null){
-                return false;
-            }
         }
+        return false;
     }
 
     private int indexNum(int hash, int length) {
-        if(length % 2 == 0){
+        if (length % 2 == 0) {
             return hash & (length - 1);
         } else {
             return hash % length;
         }
     }
 
-    static class Entry<K, V>{
+    static class Entry<K, V> {
         K key;
         V value;
         Entry<K, V> next = null;
 
-        public Entry(K key, V value){
+        public Entry(K key, V value) {
             this.key = key;
             this.value = value;
         }
 
-        public V getValue(){
+        public V getValue() {
             return value;
         }
 
-        public K getKey(){
+        public K getKey() {
             return key;
         }
     }
+
 }

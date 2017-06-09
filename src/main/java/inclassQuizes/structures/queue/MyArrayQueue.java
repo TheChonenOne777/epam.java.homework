@@ -6,7 +6,7 @@ import inclassQuizes.structures.stack.EmptyQueueException;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 
-public class MyArrayQueue<E> implements Queue<E>{
+public class MyArrayQueue<E> implements Queue<E>, Iterable<E>{
 
     Object[] objects;
     int first;
@@ -47,6 +47,25 @@ public class MyArrayQueue<E> implements Queue<E>{
         return size;
     }
 
+    public Iterator<E> iterator(){
+        return new Iterator<E>() {
+
+            int cur = first;
+            int covered = 0;
+
+            @Override
+            public boolean hasNext() {
+                return covered < size();
+            }
+
+            @Override
+            public E next() {
+                covered++;
+                return (E)objects[cur++ % objects.length];
+            }
+        };
+    }
+
     private void enlarge() {
         int len = objects.length;
         Object[] newArray = new Object[(len * 3) / 2];
@@ -55,20 +74,6 @@ public class MyArrayQueue<E> implements Queue<E>{
         }
         objects = newArray;
         last = len;
-    }
-
-    class ArrayQueueIterator<E> implements Iterator<E>{
-
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public E next() {
-            return null;
-        }
     }
 
 }

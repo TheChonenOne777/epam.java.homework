@@ -2,8 +2,9 @@ package inclassQuizes.structures.queue;
 
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -80,5 +81,28 @@ public class MyArrayQueueTest {
         queue.enqueue(9);
         assertEquals(7, queue.objects.length);
         assertArrayEquals(new Object[]{4, 5, 6, 7, 8, 9, null}, queue.objects);
+    }
+
+    @Test
+    public void testIterator() throws Exception{
+        queue.enqueue(1);
+        queue.enqueue(2);
+        queue.enqueue(3);
+        queue.enqueue(4);
+        queue.dequeue();
+        queue.dequeue();
+        queue.dequeue();
+        queue.enqueue(5);
+        queue.enqueue(6);
+        queue.enqueue(7);
+        queue.enqueue(8);
+        queue.enqueue(9);
+        Integer[] req = {4, 5, 6, 7, 8, 9};
+        List<Integer> actual = new ArrayList<>();
+        for(Integer i : queue){
+            actual.add(i);
+        }
+
+        assertArrayEquals(req, actual.toArray());
     }
 }

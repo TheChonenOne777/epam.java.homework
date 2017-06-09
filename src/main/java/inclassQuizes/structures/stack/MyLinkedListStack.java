@@ -4,7 +4,7 @@ package inclassQuizes.structures.stack;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 
-public class MyLinkedListStack<E> implements Stack<E> {
+public class MyLinkedListStack<E> implements Stack<E>, Iterable<E> {
 
     Entry<E> top;
     int size = 0;

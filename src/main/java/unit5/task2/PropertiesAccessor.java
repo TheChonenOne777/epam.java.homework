@@ -1,13 +1,9 @@
 package unit5.task2;
 
 
-import unit3.task2.ResourceBundleExample;
-
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Arrays;
 import java.util.Properties;
 
 public class PropertiesAccessor {

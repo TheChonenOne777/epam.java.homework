@@ -1,16 +1,18 @@
-package unit5.task2;
+package unit6.task2;
 
 import org.junit.Test;
 import unit3.task2.ResourceBundleExample;
+import unit5.task2.PropertiesAccessor;
 
 import java.net.URI;
 
 import static org.junit.Assert.*;
 
-public class PropertiesAccessorTest {
+
+public class PropertiesReaderTest {
     @Test
     public void testGetProperty() throws Exception {
-        PropertiesAccessor pa = new PropertiesAccessor();
+        PropertiesReader pa = new PropertiesReader();
 
         URI path = ResourceBundleExample.class.getResource("Content_en_US.properties").toURI();
 
@@ -22,8 +24,8 @@ public class PropertiesAccessorTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-        public void testKeyNotFound() throws Exception{
-        PropertiesAccessor pa = new PropertiesAccessor();
+    public void testKeyNotFound() throws Exception{
+        PropertiesReader pa = new PropertiesReader();
 
         URI path = ResourceBundleExample.class.getResource("Content_en_US.properties").toURI();
 
@@ -34,7 +36,7 @@ public class PropertiesAccessorTest {
 
     @Test
     public void testGetPropertyReadFromObject() throws Exception {
-        PropertiesAccessor pa = new PropertiesAccessor();
+        PropertiesReader pa = new PropertiesReader();
 
         ResourceBundleExample obj = new ResourceBundleExample();
 
@@ -44,4 +46,5 @@ public class PropertiesAccessorTest {
 
         assertEquals("Here are the questions:", property);
     }
+
 }

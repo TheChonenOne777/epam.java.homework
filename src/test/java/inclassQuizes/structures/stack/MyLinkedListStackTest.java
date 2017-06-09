@@ -2,8 +2,13 @@ package inclassQuizes.structures.stack;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.CORBA.INTERNAL;
 
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EmptyStackException;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -52,6 +57,24 @@ public class MyLinkedListStackTest {
         stack.push(1);
         stack.pop();
         stack.pop();
+    }
+
+    @Test
+    public void testIterator() throws Exception{
+        stack.push(1);
+        stack.push(2);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
+
+        Integer[] need = {5, 4, 3, 2, 1};
+        List<Integer> actual = new ArrayList<>();
+
+        for(Integer i : stack){
+            actual.add(i);
+        }
+
+        assertArrayEquals(need, actual.toArray());
     }
 
 
