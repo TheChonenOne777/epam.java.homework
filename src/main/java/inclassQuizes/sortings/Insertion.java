@@ -6,8 +6,8 @@ public class Insertion extends AbstractSortingAlgorithm {
 
     @Override
     public void sort(Comparable[] a) {
-        int l = a.length;
-        for(int i = 0; i < l; i++){
+        int length = a.length;
+        for(int i = 0; i < length; i++){
             for(int j = i; j > 0 && less(a[j], a[j - 1]); j--){
                 exch(a, j, j - 1);
             }
@@ -16,8 +16,8 @@ public class Insertion extends AbstractSortingAlgorithm {
 
     @Override
     public void sort(int[] a) {
-        int l = a.length;
-        for(int i = 0; i < l; i++){
+        int length = a.length;
+        for(int i = 0; i < length; i++){
             for(int j = i; j > 0 && less(a[j], a[j - 1]); j--){
                 exch(a, j, j - 1);
             }
