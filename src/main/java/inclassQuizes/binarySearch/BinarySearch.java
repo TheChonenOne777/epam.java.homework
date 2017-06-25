@@ -3,23 +3,21 @@ package inclassQuizes.binarySearch;
 
 public class BinarySearch {
 
-    public static int binarySearch(int search, int[] arr){
+    public static int binarySearch(int searchElement, int[] arr) {
 
         int low = 0;
-        int high = arr.length - 1;
+        int high = arr.length;
 
         while(low <= high){
-            int midIndex = (high + low) / 2;
-            int midEl = arr[midIndex];
-            if(midEl < search){
-                low = midIndex + 1;
-            } else if (midEl > search){
-                high = midIndex - 1;
-            } else {
-                return midIndex;
-            }
+            int mid = low + (high - low) / 2;
+
+            if(searchElement < arr[mid]) high = mid - 1;
+            else if(searchElement > arr[mid]) low = mid + 1;
+            else return mid;
         }
+
         return -1;
+
     }
 
 }

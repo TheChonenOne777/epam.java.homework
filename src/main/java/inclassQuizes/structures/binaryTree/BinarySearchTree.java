@@ -1,6 +1,8 @@
 package inclassQuizes.structures.binaryTree;
 
 
+import inclassQuizes.binarySearch.BinarySearch;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,27 +60,45 @@ public class BinarySearchTree {
         return cur;
     }
 
-    public void inOrgerTraversal(Node cur){
+    public List<Integer> getInOrderTraversal(){
+        List<Integer> output = new ArrayList<>();
+        inOrgerTraversal(root, output);
+        return output;
+    }
+
+    private void inOrgerTraversal(Node cur, List<Integer> array){
         if(cur != null){
-            inOrgerTraversal(cur.leftNode);
-            System.out.print(cur.value + " ");
-            inOrgerTraversal(cur.rightNode);
+            inOrgerTraversal(cur.leftNode, array);
+            array.add(cur.getValue());
+            inOrgerTraversal(cur.rightNode, array);
         }
     }
 
-    public void preOrgerTraversal(Node cur){
+    public List<Integer> getPreOrderTraversal(){
+        List<Integer> output = new ArrayList<>();
+        preOrgerTraversal(root, output);
+        return output;
+    }
+
+    private void preOrgerTraversal(Node cur, List<Integer> array){
         if(cur != null){
-            System.out.print(cur.value + " ");
-            preOrgerTraversal(cur.leftNode);
-            preOrgerTraversal(cur.rightNode);
+            array.add(cur.getValue());
+            preOrgerTraversal(cur.leftNode, array);
+            preOrgerTraversal(cur.rightNode, array);
         }
     }
 
-    public void postOrgerTraversal(Node cur){
+    public List<Integer> getPostOrderTraversal(){
+        List<Integer> output = new ArrayList<>();
+        postOrgerTraversal(root, output);
+        return output;
+    }
+
+    private void postOrgerTraversal(Node cur, List<Integer> array){
         if(cur != null){
-            postOrgerTraversal(cur.leftNode);
-            postOrgerTraversal(cur.rightNode);
-            System.out.print(cur.value + " ");
+            postOrgerTraversal(cur.leftNode, array);
+            postOrgerTraversal(cur.rightNode, array);
+            array.add(cur.getValue());
         }
     }
 
