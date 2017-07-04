@@ -9,15 +9,13 @@ public class ConsoleAction {
 
     public static MoviesCollection action(MoviesCollection mc){
 
-        //TODO: add while loops to guarantee strick behaviorf
+        //TODO: add while loops to guarantee strict behavior
 
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
         System.out.println("Hello, my dear user!");
-        System.out.println("To add movie or actor, type add");
-        System.out.println("To remove movie or actor, type remove");
-        System.out.println("To view all movies, type show");
+        printGuide();
 
         while(!"exit".equals(input)){
 
@@ -80,15 +78,19 @@ public class ConsoleAction {
 
                 default:
                 case("help"):
-                    System.out.println("To add movie or actor, type add");
-                    System.out.println("To remove movie or actor, type remove");
-                    System.out.println("To view all movies, type show");
+                    printGuide();
                     break;
             }
 
         }
 
         return mc;
+    }
+
+    private static void printGuide() {
+        System.out.println("To add movie or actor, type add");
+        System.out.println("To remove movie or actor, type remove");
+        System.out.println("To view all movies, type show");
     }
 
     private static void printMovies(MoviesCollection mc) {

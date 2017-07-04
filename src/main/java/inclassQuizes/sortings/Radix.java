@@ -9,7 +9,7 @@ public class Radix extends AbstractSortingAlgorithm{
 
     @Override
     public void sort(int[] a) {
-        for(int digitPlace = 0; digitPlace <= Math.pow(10, getLargestDigitPlace(a)); digitPlace *= 10){
+        for(int digitPlace = 1; digitPlace <= Math.pow(10, getLargestDigitPlace(a)); digitPlace *= 10){
             a = sortByDigitNumber(a, digitPlace);
         }
     }

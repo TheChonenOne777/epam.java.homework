@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<transactions>
+	<transaction id=1>
+		<from>1</from>
+		<to>2</to>
+		<amount>100</amount>
+	</transaction>
+	<transaction id=2>
+		<from>2</from>
+		<to>3</to>
+		<amount>100</amount>
+	</transaction>
+</transactions>
