@@ -1,10 +1,12 @@
 package unit7.task1;
 
 import org.xml.sax.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionSaxHandler implements ContentHandler, ErrorHandler {
-    private List<Transaction> transactionList;
+    private List<Transaction> transactionList = new ArrayList<>();
     private Transaction transaction;
     private StringBuilder text;
 

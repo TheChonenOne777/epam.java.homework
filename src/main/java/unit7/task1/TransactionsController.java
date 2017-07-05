@@ -13,7 +13,7 @@ public class TransactionsController {
     public void executeAllTransactionsParallel(){
         transactionsModel.readFromXML();
         for(Transaction transaction : transactionsModel.getTransactions()){
-            new Thread(new TransactionRunnable(transaction)).start();
+            new Thread(new TransactionRunnable(transaction, transactionsModel)).start();
         }
     }
 

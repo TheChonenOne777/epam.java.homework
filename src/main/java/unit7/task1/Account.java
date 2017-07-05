@@ -1,11 +1,13 @@
 package unit7.task1;
 
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Account {
     private final int ID;
     private int amount;
-    private ReentrantLock lock;
+    private ReentrantLock lockForWithdraw = new ReentrantLock();
+    private ReentrantLock lockForDeposit = new ReentrantLock();
 
     private static int IDincreaser;
 
@@ -19,23 +21,23 @@ public class Account {
     }
 
     public void withdrawWithLock(int amount){
-        lock.lock();
+        lockForWithdraw.lock();
         if (this.amount - amount < 0) {
             throw new IllegalArgumentException("Amount to withdraw is too large");
         } else {
             this.amount -= amount;
         }
-        lock.unlock();
+        lockForWithdraw.unlock();
     }
 
     public void depositWithLock(int amount){
-        lock.lock();
         if (amount >= 0) {
+            lockForDeposit.lock();
             this.amount += amount;
+            lockForDeposit.unlock();
         } else {
             throw new IllegalArgumentException("Amount to deposit can not be negative");
         }
-        lock.unlock();
     }
 
     public void withdrawSynchronized(int amount){
@@ -49,12 +51,12 @@ public class Account {
     }
 
     public void depositSynchronized(int amount){
-        synchronized (this) {
-            if (amount >= 0) {
+        if (amount >= 0) {
+            synchronized (this) {
                 this.amount += amount;
-            } else {
-                throw new IllegalArgumentException("Amount to deposit can not be negative");
             }
+        } else {
+            throw new IllegalArgumentException("Amount to deposit can not be negative");
         }
     }
 
@@ -63,11 +65,31 @@ public class Account {
     }
 
     public int getID() {
-
         return ID;
     }
 
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return ID == account.ID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "ID=" + ID +
+                ", amount=" + amount +
+                '}';
     }
 }

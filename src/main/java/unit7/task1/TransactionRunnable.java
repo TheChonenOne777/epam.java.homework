@@ -1,10 +1,11 @@
 package unit7.task1;
 
 public class TransactionRunnable implements Runnable{
-    TransactionsModel transactionsModel = new TransactionsModel();;
+    TransactionsModel transactionsModel;
     Transaction transaction;
 
-    public TransactionRunnable(Transaction transaction) {
+    public TransactionRunnable(Transaction transaction, TransactionsModel transactionsModel) {
+        this.transactionsModel = transactionsModel;
         this.transaction = transaction;
     }
 

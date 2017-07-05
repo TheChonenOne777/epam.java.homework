@@ -7,14 +7,15 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TransactionsModel {
     private XMLReader reader;
     private TransactionSaxHandler handler;
     private List<Transaction> transactions;
-    private List<Account> accounts;
+    private Set<Account> accounts;
 
     public TransactionsModel() {
         try {
@@ -27,7 +28,7 @@ public class TransactionsModel {
     }
 
     private void initAccounts() {
-        accounts = new ArrayList<>();
+        accounts = new HashSet<>();
         accounts.add(new Account(100));
         accounts.add(new Account(200));
         accounts.add(new Account(300));
@@ -48,16 +49,25 @@ public class TransactionsModel {
     }
 
     public void executeTransaction(Transaction transaction){
-        System.out.println("Transaction " + transaction.getID() + "started");
+        System.out.println("Transaction " + transaction.getID() + " started");
 
-        checkIfTransactionHasValidAccounts(transaction);
-
-        int amount = transaction.getAmountToTransfer();
         Account fromAccount = getAccountById(transaction.getIDAccountToWithdrawFrom());
-        Account toAccount = getAccountById(transaction.getIDAccountToWithdrawFrom());
+        Account toAccount = getAccountById(transaction.getIDAccountToDepositTo());
+        int amount = transaction.getAmountToTransfer();
+
+        checkIfAccountExist(fromAccount);
+        checkIfAccountExist(toAccount);
+
         fromAccount.withdrawSynchronized(amount);
         toAccount.depositSynchronized(amount);
+
+//        fromAccount.withdrawWithLock(amount);
+//        toAccount.depositWithLock(amount);
+
+        accounts.add(fromAccount);
+        accounts.add(toAccount);
     }
+
 
     private Account getAccountById(int id){
         for(Account account : accounts){
@@ -68,16 +78,11 @@ public class TransactionsModel {
         return null;
     }
 
-    private void checkIfTransactionHasValidAccounts(Transaction transaction){
-        int from = transaction.getIDAccountToDepositTo();
-        int to = transaction.getIDAccountToWithdrawFrom();
-        for(Account account : accounts) {
-             if(from != account.getID()){
-                 throw new IllegalArgumentException("Account to withdraw from does not exist");
-             }
-             if(to != account.getID()){
-                 throw new IllegalArgumentException("Account to deposit to does not exist");
-             }
-        }
+    private void checkIfAccountExist(Account account){
+        if(!accounts.contains(account)) throw new IllegalArgumentException("Account does not exist");
+    }
+
+    public Set<Account> getAccounts() {
+        return accounts;
     }
 }
