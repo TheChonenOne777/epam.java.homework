@@ -6,18 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainWindow {
+public class Main {
 
-
-    private JPanel mainPanel;
-    private JTextField deskOwnerTextField;
-    private JButton addDeskButton;
-    private JTextField itemNameTextField;
-    private JTextField itemPriceTextField;
-    private JButton addItemButton;
-    private JButton removeItemButton;
-    private JScrollPane listOfDesks;
-    private JScrollPane listOfItems;
 
     public static void main(String[] args) {
 
@@ -26,11 +16,15 @@ public class MainWindow {
         Item notebook = new Item("Notebook", 50);
         Item folder = new Item("Folder", 100);
 
-        List<Item> itemList = new ArrayList<Item>(Arrays.asList(pen, pencil, notebook, folder));
+        List<Item> itemList = new ArrayList<>(Arrays.asList(pen, pencil, notebook, folder));
 
         Desk desk1 = new Desk("Parker", itemList);
         Desk desk2 = new Desk("Smith", itemList);
         Desk desk3 = new Desk("Banks", itemList);
+
+        System.out.println(desk1.countTotal());
+        desk1.addItem(new Item("Sharpener", 5));
+        System.out.println(desk1.countTotal());
 
     }
 }

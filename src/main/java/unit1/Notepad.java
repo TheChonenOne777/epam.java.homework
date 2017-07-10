@@ -26,15 +26,10 @@ public class Notepad {
      */
 
 	public Notepad(){
-		
 		notes = new Note[10];
-
 		for(int i = 0; i < notes.length; i++){
-
 			notes[i] = new Note();
-
 		}
-
 	}
 
 	/**
@@ -44,15 +39,10 @@ public class Notepad {
 	 */
 	
 	public Notepad(int size){
-		
 		notes = new Note[size];
-		
 		for(int i = 0; i < notes.length; i++){
-			
 			notes[i] = new Note("", "");
-			
 		}
-		
 	}
 
 
@@ -64,31 +54,21 @@ public class Notepad {
 	 */
 	
 	public void addNote(Note note){
-		
 		boolean added = false;
-		
+
 		for(Note n : notes){
-			
 			if(n.getTitle().equals(note.getTitle())){
-				
 				System.out.println("The note with the same title already exists.");
-				
 				break;
-				
 			} else if(n.getTitle().equals("") && !added){
-				
 				n.setTitle(note.getTitle());
 				n.setContents(note.getContents());
 				added = true;
-				
 			}
-				
 		}
 		
 		if(!added){
-			
 			System.out.println("The notepad is full!");
-			
 		}
 			
 	}

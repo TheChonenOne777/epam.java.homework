@@ -23,6 +23,22 @@ public class Pen {
         this.inkColor = inkColor;
     }
 
+    Pen(String type,
+        String inkColor,
+        String bodyColor,
+        boolean attachable,
+        int inklevel,
+        String material,
+        float thickness){
+
+        this(type, inkColor);
+        this.bodyColor = bodyColor;
+        this.attachable = attachable;
+        this.setInklevel(inklevel);
+        this.material = material;
+        this.thickness = thickness;
+    }
+
     public String getType() {
         return type;
     }
@@ -81,22 +97,6 @@ public class Pen {
 
     public void setMaterial(String material) {
         this.material = material;
-    }
-
-    Pen(String type,
-        String inkColor,
-        String bodyColor,
-        boolean attachable,
-        int inklevel,
-        String material,
-        float thickness){
-
-        this(type, inkColor);
-        this.bodyColor = bodyColor;
-        this.attachable = attachable;
-        this.setInklevel(inklevel);
-        this.material = material;
-        this.thickness = thickness;
     }
 
 

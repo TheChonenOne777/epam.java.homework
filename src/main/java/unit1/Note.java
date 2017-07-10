@@ -7,7 +7,6 @@ package unit1;
 public class Note {
 
 	private String title;
-	
 	private String contents;
 
     /**
@@ -15,10 +14,8 @@ public class Note {
      */
 	
 	public Note(){
-
 	    title = "";
 	    contents = "";
-
     }
 
     /**
@@ -56,17 +53,11 @@ public class Note {
      */
 
 	public String toString(){
-		
 		if(!(title.equals("") && contents.equals(""))){
-		
 			return("Title: " + title + "\nContents: " + contents + "\n");
-		
 		} else {
-			
 			return "";
-			
 		}
-		
 	}
 	
 }

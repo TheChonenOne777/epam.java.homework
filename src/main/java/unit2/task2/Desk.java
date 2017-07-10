@@ -11,8 +11,7 @@ public class Desk {
     private static int counterId;
 
     public Desk(){
-        counterId++;
-        id = counterId;
+        id = ++counterId;
         owner = "";
         items = new ArrayList<Item>();
     }
