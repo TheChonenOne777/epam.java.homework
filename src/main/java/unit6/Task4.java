@@ -10,7 +10,6 @@ public class Task4 {
 
     public static void main(String[] args) throws URISyntaxException, IOException {
         Files.readAllLines(Paths.get(Task4.class.getResource("task4.txt").toURI())).forEach(System.out::println);
-
     }
 
 }

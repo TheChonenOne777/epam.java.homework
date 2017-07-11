@@ -37,14 +37,6 @@ public class JavaCodeProcessorByteStream {
     public static void main(String[] args) throws IOException {
 
         StringBuilder sb = new StringBuilder();
-//        EnumMap<JavaKeyWords, Integer> keyWordsCounter = new EnumMap<>(JavaKeyWords.class);
-//
-//        try (BufferedInputStream bis = new BufferedInputStream(JavaCodeProcessorByteStream.class.getResourceAsStream("javaClass.txt"))) {
-//            int c;
-//            while ((c = bis.read()) != -1) {
-//                sb.append((char) c);
-//            }
-//        }
 
         for(byte b : Files.readAllBytes(getPath("javaClass.txt"))){
             sb.append((char)b);
@@ -63,18 +55,9 @@ public class JavaCodeProcessorByteStream {
             }
         }
 
-//        for(Map.Entry<JavaKeyWords, Integer> pair : keyWordsCounter.entrySet()){
-//
-//            pair.setValue(countWordOccurences(pair.getKey().getName(), sb.toString()));
-//
-//            System.out.println(pair.getKey().getName() + ": " + pair.getValue());
-//
-//        }
-
         try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("JavaCodeWords.txt"))) {
             bos.write(sb.toString().getBytes());
         }
-
     }
 
     private static Path getPath(String s) {
