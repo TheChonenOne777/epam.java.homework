@@ -1,7 +1,6 @@
 package unit2.task2;
 
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -4,63 +4,77 @@ package unit3.task3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class TextAnalizer {
 
-    public static void main(String[] args) throws IOException {
+    static Pattern pattern;
+    static Matcher matcher;
+    static StringBuilder contentWithPics;
 
-        Pattern pattern = Pattern.compile("([Рр]ис\\.?\\s*(\\d+))|([Рр]исун[а-я]{0,2}\\.?\\s*(\\d+))");
-        Matcher matcher1;
-        StringBuilder sb = new StringBuilder();
+    public static void analizePicturesInText(String resourceName){
+        pattern = Pattern.compile("([Рр]ис\\.?\\s*(\\d+))|([Рр]исун[а-я]{0,2}\\.?\\s*(\\d+))");
+        contentWithPics = new StringBuilder();
 
-        try(BufferedReader br = new BufferedReader(getResource("task_attachment.html"))){
-
-            int currentPicNumber = 0;
-            int incomingPicNumber = 0;
+        try(BufferedReader br = new BufferedReader(getResource(resourceName))){
+            int currentPicNumberInDocument = 0;
 
             while (br.ready()){
                 String input = br.readLine();
-                sb.append(input);
-
-                matcher1 = pattern.matcher(input);
-                while (matcher1.find()){
-                    incomingPicNumber = Integer.parseInt(matcher1.group(2));
-                    if(currentPicNumber <= incomingPicNumber){
-                        currentPicNumber = incomingPicNumber;
-                    } else {
-                        System.out.println("Previous picture number was " + currentPicNumber +
-                                ", but this one is lower: " + incomingPicNumber);
-                    }
-                    incomingPicNumber = Integer.parseInt(matcher1.group(4));
-                    if(currentPicNumber <= incomingPicNumber){
-                        currentPicNumber = incomingPicNumber;
-                    } else {
-                        System.out.println("Previous picture number was " + currentPicNumber +
-                                ", but this one is lower: " + incomingPicNumber);
-                    }
-                }
+                currentPicNumberInDocument = getLessPicNumberByLine(currentPicNumberInDocument, input);
             }
 
-        }
-
-        Pattern sentenceDelimiter = Pattern.compile("(?<=\\.)\\s+(?=\\p{L})");
-        Matcher matcher2;
-
-        for(String sentence : sentenceDelimiter.split(sb)){
-            matcher2 = pattern.matcher(sentence);
-            if(matcher2.find()){
-                System.out.println(sentence);
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
 
-    private static InputStreamReader getResource(String name){
+    public static void printContentWithPicsBySentence() {
+        //sentence delimiter
+        pattern = Pattern.compile("(?<=\\.)\\s+(?=\\p{L})");
+        int sentenceNumber = 0;
+        for(String sentence : pattern.split(contentWithPics)){
+            System.out.println(++sentenceNumber + ") " +sentence);
+        }
+    }
+
+    private static int getLessPicNumberByLine(int currentPicNumberInLine, String line) {
+        matcher = pattern.matcher(line);
+        while (matcher.find()){
+            contentWithPics.append(line);
+            currentPicNumberInLine = getLessPicNumberFromMatcherGroup(currentPicNumberInLine, 2);
+            currentPicNumberInLine = getLessPicNumberFromMatcherGroup(currentPicNumberInLine, 4);
+        }
+        return currentPicNumberInLine;
+    }
+
+    private static int getLessPicNumberFromMatcherGroup(int currentPicNumber, int matcherGroup) {
+        if(matcher.group(matcherGroup) != null) {
+            int incomingPicNumber = Integer.parseInt(matcher.group(matcherGroup));
+            if (currentPicNumber > incomingPicNumber) {
+                System.out.println("Previous mentioned picture number was " + currentPicNumber +
+                        ", but this one is lower: " + incomingPicNumber);
+            }
+            currentPicNumber = incomingPicNumber;
+        }
+        return currentPicNumber;
+    }
+
+    private static InputStreamReader getResource(String name) throws UnsupportedEncodingException {
         Class<TextAnalizer> className = TextAnalizer.class;
-        return new InputStreamReader(className.getResourceAsStream(name));
+        return new InputStreamReader(className.getResourceAsStream(name), "windows-1251");
     }
+
+    public static void main(String[] args){
+
+        analizePicturesInText("task_attachment.html");
+        printContentWithPicsBySentence();
+
+    }
+
 
 }

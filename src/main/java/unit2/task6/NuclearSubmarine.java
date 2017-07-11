@@ -5,7 +5,7 @@ import unit2.task7.*;
 @PreWordForClass(
         author = "Vladimir Chertilov",
         dateCreated = "5/15/2017",
-        ifInGitHub = true
+        isInGitHub = true
 )
 public class NuclearSubmarine {
 

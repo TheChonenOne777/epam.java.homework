@@ -8,5 +8,5 @@ import java.lang.annotation.*;
 public @interface PreWordForClass {
     String author();
     String dateCreated();
-    boolean ifInGitHub();
+    boolean isInGitHub();
 }
