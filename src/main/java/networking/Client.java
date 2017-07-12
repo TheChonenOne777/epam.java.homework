@@ -22,6 +22,8 @@ public class Client implements Runnable{
             writeResponse("Hello World");
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            quiteClose(socket);
         }
         System.out.println("Client processing finished");
     }
@@ -45,5 +47,13 @@ public class Client implements Runnable{
                 input;
         os.write(response.getBytes());
         os.flush();
+    }
+
+    private static void quiteClose(Closeable c) {
+        try {
+            c.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

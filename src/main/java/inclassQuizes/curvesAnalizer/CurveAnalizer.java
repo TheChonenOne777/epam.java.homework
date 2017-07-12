@@ -32,11 +32,7 @@ public class CurveAnalizer implements CurveAnalizable {
             }
 
         }
-        if(checkStack.empty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return checkStack.empty();
     }
 
     public boolean matchesUsingMap(String str){
